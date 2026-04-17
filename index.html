@@ -562,6 +562,173 @@
       #hero { padding-top:100px; }
       .hero-title { font-size:2.8rem; }
     }
+
+    /* ── GALLERY ── */
+    #gallery { background: linear-gradient(180deg, #f8f6f0 0%, #fafaf8 100%); }
+
+    .gallery-tab-btn {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 700; padding: 12px 32px; border-radius: 8px;
+      transition: all 0.3s; border: 1.5px solid rgba(201,168,76,0.35);
+      color: var(--text-muted); background: transparent; cursor: none;
+    }
+    .gallery-tab-btn.active {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--navy); border-color: transparent;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+    }
+    .gallery-tab-btn:not(.active):hover { border-color: var(--gold); color: var(--gold); }
+
+    .gallery-panel { display: none; }
+    .gallery-panel.active { display: block; }
+
+    /* Masonry image grid */
+    .img-gallery-grid {
+      columns: 3;
+      column-gap: 16px;
+    }
+    @media (max-width: 900px) { .img-gallery-grid { columns: 2; } }
+    @media (max-width: 560px) { .img-gallery-grid { columns: 1; } }
+
+    .img-gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: none;
+      box-shadow: 0 4px 20px rgba(10,22,40,0.1);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .img-gallery-item:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(10,22,40,0.18); }
+    .img-gallery-item img {
+      width: 100%; display: block; border-radius: 12px;
+      transition: transform 0.5s ease;
+    }
+    .img-gallery-item:hover img { transform: scale(1.04); }
+    .img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(10,22,40,0.75) 100%);
+      opacity: 0; transition: opacity 0.35s ease;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 16px;
+      border-radius: 12px;
+    }
+    .img-gallery-item:hover .img-overlay { opacity: 1; }
+    .img-overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      color: #fff; font-size: 1.1rem; font-weight: 700; line-height: 1.2;
+    }
+    .img-overlay-tag {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 4px;
+    }
+
+    /* Lightbox */
+    #gallery-lightbox {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(10,22,40,0.96);
+      display: none; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #gallery-lightbox.open { display: flex; }
+    #gallery-lightbox img {
+      max-width: 90vw; max-height: 85vh;
+      border-radius: 12px; box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      border: 1px solid rgba(201,168,76,0.25);
+    }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      color: var(--gold); font-size: 2rem; cursor: none;
+      background: none; border: none; line-height: 1;
+      transition: transform 0.2s; z-index: 1;
+    }
+    .lightbox-close:hover { transform: rotate(90deg) scale(1.2); }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 1.5rem; padding: 12px 16px;
+      border-radius: 8px; cursor: none; transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: rgba(201,168,76,0.3); }
+    .lightbox-nav.prev { left: 16px; }
+    .lightbox-nav.next { right: 16px; }
+    .lightbox-caption {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.7); font-size: 0.8rem; letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    /* Video gallery grid */
+    .video-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .video-card {
+      border-radius: 14px; overflow: hidden;
+      background: var(--navy);
+      box-shadow: 0 6px 30px rgba(10,22,40,0.15);
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: none;
+    }
+    .video-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(10,22,40,0.25); border-color: rgba(201,168,76,0.35); }
+    .video-thumb {
+      position: relative; overflow: hidden; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+    .play-btn {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .play-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(201,168,76,0.92);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 0 0 8px rgba(201,168,76,0.2);
+    }
+    .video-card:hover .play-circle { transform: scale(1.12); background: var(--gold-light); }
+    .video-meta { padding: 18px 20px; }
+    .video-meta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+    }
+    .video-meta-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .video-duration {
+      position: absolute; bottom: 8px; right: 10px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
+      background: rgba(10,22,40,0.8); color: var(--gold);
+      padding: 3px 8px; border-radius: 4px;
+    }
+
+    /* Video Modal */
+    #video-modal {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(10,22,40,0.97);
+      display: none; align-items: center; justify-content: center; padding: 24px;
+    }
+    #video-modal.open { display: flex; }
+    .video-modal-inner {
+      width: 100%; max-width: 900px;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: var(--navy);
+      position: relative;
+    }
+    .video-modal-inner iframe, .video-modal-inner video {
+      width: 100%; aspect-ratio: 16/9; display: block; border: none;
+    }
+    .video-modal-close {
+      position: absolute; top: -44px; right: 0;
+      color: var(--gold); font-size: 2rem; cursor: none;
+      background: none; border: none; line-height: 1;
+      transition: transform 0.2s;
+    }
+    .video-modal-close:hover { transform: rotate(90deg) scale(1.2); }
   </style>
 </head>
 
@@ -674,6 +841,7 @@
           <a href="#services" class="nav-link">Services</a>
           <a href="#about" class="nav-link">About</a>
           <a href="#fleet" class="nav-link">Fleet</a>
+          <a href="#gallery" class="nav-link">Gallery</a>
           <a href="#faq" class="nav-link">FAQ</a>
           <a href="#contact" class="nav-link">Contact</a>
         </div>
@@ -703,6 +871,7 @@
       <a href="#services" class="mobile-nav-link">Services</a>
       <a href="#about" class="mobile-nav-link">About</a>
       <a href="#fleet" class="mobile-nav-link">Fleet</a>
+      <a href="#gallery" class="mobile-nav-link">Gallery</a>
       <a href="#faq" class="mobile-nav-link">FAQ</a>
       <a href="#contact" class="mobile-nav-link">Contact</a>
       <a href="https://wa.me/918606076219" target="_blank" class="mobile-nav-link" style="color:#25D366;">WhatsApp Us</a>
@@ -1185,6 +1354,281 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ GALLERY ═══ -->
+  <section id="gallery" class="py-24" aria-label="Gallery">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <!-- Section Header -->
+      <div class="text-center mb-14 reveal">
+        <div class="section-tag">Visual Journey</div>
+        <span class="gold-line"></span>
+        <h2 class="section-title">Our <em>Gallery</em></h2>
+        <p style="color:var(--text-muted);max-width:520px;margin:16px auto;line-height:1.8;">
+          Take a look at the world-class rides, scenic routes, and memorable moments that define the Brothers Cabs experience.
+        </p>
+      </div>
+
+      <!-- Gallery Tabs -->
+      <div class="flex justify-center gap-4 mb-12 reveal">
+        <button class="gallery-tab-btn active" id="gallery-tab-images" onclick="switchGalleryTab('images')">
+          <span style="margin-right:8px;">🖼</span> Image Gallery
+        </button>
+        <button class="gallery-tab-btn" id="gallery-tab-videos" onclick="switchGalleryTab('videos')">
+          <span style="margin-right:8px;">🎬</span> Video Gallery
+        </button>
+      </div>
+
+      <!-- ── IMAGE PANEL ── -->
+      <div id="gallery-panel-images" class="gallery-panel active">
+        <!-- Filter chips -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10 reveal" id="img-filter-bar">
+          <button class="img-filter-chip active" onclick="filterGallery('all', this)">All</button>
+          <button class="img-filter-chip" onclick="filterGallery('fleet', this)">Fleet</button>
+          <button class="img-filter-chip" onclick="filterGallery('routes', this)">Scenic Routes</button>
+          <button class="img-filter-chip" onclick="filterGallery('events', this)">Events & Weddings</button>
+          <button class="img-filter-chip" onclick="filterGallery('airports', this)">Airport Transfers</button>
+        </div>
+        <style>
+          .img-filter-chip {
+            font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+            font-weight: 700; padding: 8px 20px; border-radius: 20px;
+            border: 1px solid rgba(201,168,76,0.3); color: var(--text-muted);
+            background: transparent; cursor: none; transition: all 0.25s;
+          }
+          .img-filter-chip.active, .img-filter-chip:hover {
+            background: var(--gold); color: var(--navy); border-color: transparent;
+          }
+        </style>
+
+        <div class="img-gallery-grid" id="img-gallery-grid">
+          <!-- Row of images — using Unsplash for realistic cab/Kerala/mountain scenery -->
+
+          <div class="img-gallery-item reveal" data-cat="fleet" onclick="openLightbox(0)">
+            <img src="1.jpeg?w=600&q=80" alt="Premium Sedan Fleet" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Fleet</div>
+              <div class="img-overlay-title">Premium Executive Sedan</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="routes" onclick="openLightbox(1)">
+            <img src="2.jpeg?w=600&q=80" alt="Munnar Tea Gardens" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Scenic Routes</div>
+              <div class="img-overlay-title">Munnar Tea Garden Drive</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="events" onclick="openLightbox(2)">
+            <img src="3.jpeg?w=600&q=80" alt="Wedding Cab Service" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Events & Weddings</div>
+              <div class="img-overlay-title">Royal Wedding Transfer</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="airports" onclick="openLightbox(3)">
+            <img src="4.jpeg?w=600&q=80" alt="Airport Transfer" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Airport Transfers</div>
+              <div class="img-overlay-title">Cochin Airport Pickup</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="fleet" onclick="openLightbox(4)">
+            <img src="5.jpeg?w=600&q=80" alt="Luxury SUV" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Fleet</div>
+              <div class="img-overlay-title">Luxury SUV — 7 Seater</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="routes" onclick="openLightbox(5)">
+            <img src="6.jpeg?w=600&q=80" alt="Mountain Route Kerala" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Scenic Routes</div>
+              <div class="img-overlay-title">Western Ghats Mountain Pass</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="events" onclick="openLightbox(6)">
+            <img src="7.jpeg?w=600&q=80" alt="Corporate Event Transport" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Corporate</div>
+              <div class="img-overlay-title">Corporate Event Fleet</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="routes" onclick="openLightbox(7)">
+            <img src="8.jpeg?w=600&q=80" alt="Kerala Backwaters" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Scenic Routes</div>
+              <div class="img-overlay-title">Kerala Backwaters Route</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="fleet" onclick="openLightbox(8)">
+            <img src="9.jpeg?w=600&q=80" alt="Premium Car Interior" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Fleet</div>
+              <div class="img-overlay-title">Premium Cabin Interior</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="airports" onclick="openLightbox(9)">
+            <img src="10.jpeg?w=600&q=80" alt="Airport Terminal" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Airport Transfers</div>
+              <div class="img-overlay-title">On-Time Departure Guarantee</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="events" onclick="openLightbox(10)">
+            <img src="11.jpeg?w=600&q=80" alt="Wedding decoration" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Weddings</div>
+              <div class="img-overlay-title">Floral Decorated Cab</div>
+            </div>
+          </div>
+
+          <div class="img-gallery-item reveal" data-cat="routes" onclick="openLightbox(11)">
+            <img src="12.jpeg?w=600&q=80" alt="Forest Road Kerala" loading="lazy"/>
+            <div class="img-overlay">
+              <div class="img-overlay-tag">Scenic Routes</div>
+              <div class="img-overlay-title">Forest Trail — Eravikulam</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load more -->
+        <div class="text-center mt-12 reveal">
+          <button class="btn-navy" onclick="loadMoreImages(this)" style="cursor:none;">Load More Photos ↓</button>
+        </div>
+      </div>
+
+      <!-- ── VIDEO PANEL ── -->
+      <div id="gallery-panel-videos" class="gallery-panel">
+        <div class="video-gallery-grid">
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/NyMnCdIGCd0?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&q=80" alt="Munnar Scenic Drive" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">3:42</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Munnar Scenic Drive Experience</div>
+              <div class="video-meta-desc">Join us on a breathtaking journey through the misty tea gardens and valleys of Munnar.</div>
+            </div>
+          </div>
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/a0hC4IZiJIQ?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=640&q=80" alt="Wedding Cab Tour" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">2:15</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Wedding Fleet Showcase</div>
+              <div class="video-meta-desc">See how we decorate and prepare our premium fleet for your most special day.</div>
+            </div>
+          </div>
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/SWYqp7iY_Tc?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=640&q=80" alt="Premium Cab Interior Tour" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">1:58</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Interior Walkthrough — Executive Sedan</div>
+              <div class="video-meta-desc">A full tour of our flagship executive sedan cabin — leather seats, USB ports, WiFi & more.</div>
+            </div>
+          </div>
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/NyMnCdIGCd0?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=640&q=80" alt="Airport Transfer Process" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">2:33</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Airport Transfer — How It Works</div>
+              <div class="video-meta-desc">From booking to drop-off — see the seamless airport transfer process with Brothers Cabs.</div>
+            </div>
+          </div>
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/a0hC4IZiJIQ?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?w=640&q=80" alt="Kerala Outstation Trip" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">4:10</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Kerala Outstation Roadtrip Vlog</div>
+              <div class="video-meta-desc">A customer-captured vlog of their Munnar-to-Thekkady outstation trip with Brothers Cabs.</div>
+            </div>
+          </div>
+
+          <div class="video-card reveal" onclick="openVideoModal('https://www.youtube.com/embed/SWYqp7iY_Tc?autoplay=1')">
+            <div class="video-thumb">
+              <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=640&q=80" alt="Corporate Booking" loading="lazy"/>
+              <div class="play-btn">
+                <div class="play-circle">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--navy)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="video-duration">1:45</div>
+            </div>
+            <div class="video-meta">
+              <div class="video-meta-title">Corporate Booking — For Teams</div>
+              <div class="video-meta-desc">How businesses use Brothers Cabs for daily executive commutes and event transportation.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── LIGHTBOX ── -->
+  <div id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeLightboxOnBg(event)">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <button class="lightbox-nav prev" onclick="lightboxNav(-1)" aria-label="Previous">&#8249;</button>
+    <img id="lightbox-img" src="" alt="Gallery image"/>
+    <button class="lightbox-nav next" onclick="lightboxNav(1)" aria-label="Next">&#8250;</button>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
+  <!-- ── VIDEO MODAL ── -->
+  <div id="video-modal" role="dialog" aria-modal="true" aria-label="Video player" onclick="closeVideoOnBg(event)">
+    <div class="video-modal-inner">
+      <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close video">&times;</button>
+      <iframe id="video-modal-iframe" src="" allow="autoplay; fullscreen" allowfullscreen title="Brothers Cabs video"></iframe>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════ WHY US ═══ -->
   <section style="padding:80px 0;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);" aria-label="Why Choose Brothers Cabs">
     <div class="max-w-7xl mx-auto px-6">
@@ -1655,6 +2099,115 @@
     const style = document.createElement('style');
     style.textContent = '@keyframes ripple{to{transform:translate(-50%,-50%) scale(1);opacity:0;}}';
     document.head.appendChild(style);
+
+    // ─── GALLERY TAB SWITCH ───
+    function switchGalleryTab(tab) {
+      document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.gallery-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('gallery-panel-' + tab).classList.add('active');
+      document.getElementById('gallery-tab-' + tab).classList.add('active');
+    }
+
+    // ─── IMAGE FILTER ───
+    function filterGallery(cat, btn) {
+      document.querySelectorAll('.img-filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#img-gallery-grid .img-gallery-item').forEach(item => {
+        if (cat === 'all' || item.dataset.cat === cat) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // ─── LIGHTBOX ───
+    const lightboxImages = [
+      { src: '1.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '2.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '3.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '4.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '5.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '6.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '7.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '8.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '9.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '10.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '11.jpeg?w=1200&q=85', caption: 'Safari' },
+      { src: '12.jpeg?w=1200&q=85', caption: 'Safari' },
+    ];
+    let currentLightboxIndex = 0;
+
+    function openLightbox(idx) {
+      currentLightboxIndex = idx;
+      const lb = document.getElementById('gallery-lightbox');
+      document.getElementById('lightbox-img').src = lightboxImages[idx].src;
+      document.getElementById('lightbox-caption').textContent = (idx + 1) + ' / ' + lightboxImages.length + '  ·  ' + lightboxImages[idx].caption;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('gallery-lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeLightboxOnBg(e) {
+      if (e.target === document.getElementById('gallery-lightbox')) closeLightbox();
+    }
+    function lightboxNav(dir) {
+      currentLightboxIndex = (currentLightboxIndex + dir + lightboxImages.length) % lightboxImages.length;
+      openLightbox(currentLightboxIndex);
+    }
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('gallery-lightbox');
+      if (lb.classList.contains('open')) {
+        if (e.key === 'ArrowRight') lightboxNav(1);
+        if (e.key === 'ArrowLeft') lightboxNav(-1);
+        if (e.key === 'Escape') closeLightbox();
+      }
+      const vm = document.getElementById('video-modal');
+      if (vm.classList.contains('open') && e.key === 'Escape') closeVideoModal();
+    });
+
+    // ─── VIDEO MODAL ───
+    function openVideoModal(url) {
+      document.getElementById('video-modal-iframe').src = url;
+      document.getElementById('video-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal() {
+      document.getElementById('video-modal-iframe').src = '';
+      document.getElementById('video-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeVideoOnBg(e) {
+      if (e.target === document.getElementById('video-modal')) closeVideoModal();
+    }
+
+    // ─── LOAD MORE IMAGES ───
+    const extraImages = [
+      { src:'13.jpeg?w=600&q=80', cat:'fleet', title:'Night Fleet Lineup', tag:'Fleet' }
+    ];
+    let extraLoaded = false;
+    function loadMoreImages(btn) {
+      if (extraLoaded) return;
+      extraLoaded = true;
+      const grid = document.getElementById('img-gallery-grid');
+      extraImages.forEach((img, i) => {
+        const div = document.createElement('div');
+        div.className = 'img-gallery-item';
+        div.dataset.cat = img.cat;
+        div.style.opacity = '0';
+        div.style.transform = 'translateY(20px)';
+        div.style.transition = `opacity 0.5s ${i*0.15}s ease, transform 0.5s ${i*0.15}s ease`;
+        div.innerHTML = `<img src="${img.src}" alt="${img.title}" loading="lazy"/><div class="img-overlay"><div class="img-overlay-tag">${img.tag}</div><div class="img-overlay-title">${img.title}</div></div>`;
+        div.onclick = () => openLightbox(lightboxImages.length - 1);
+        grid.appendChild(div);
+        setTimeout(() => { div.style.opacity = '1'; div.style.transform = 'translateY(0)'; }, 50);
+      });
+      btn.textContent = 'All Photos Loaded ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+    }
   </script>
 
 </body>
